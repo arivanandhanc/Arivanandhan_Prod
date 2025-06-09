@@ -8,30 +8,29 @@ const SkillsProjects = () => {
 
       {/* Skills Section */}
       <div style={styles.section}>
-        <h3 style={styles.subHeading}>Skills & Expertise</h3>
-        <ul style={styles.list}>
-          <li style={styles.listItem}>
-            <strong>Jira Service Desk & ITSM:</strong> 
-            Expertise in configuring workflows, issue types, automation, REST API integrations, and managing SLAs.
-          </li>
-          <li style={styles.listItem}>
-            <strong>New Relic Monitoring:</strong> 
-            Hands-on experience with APM, Synthetics, and dashboards to proactively detect and resolve performance issues.
-          </li>
-          <li style={styles.listItem}>
-            <strong>ReactJS Development:</strong> 
-            Proficient in building modern, responsive web applications with React, optimizing UI/UX for performance and accessibility.
-          </li>
-          <li style={styles.listItem}>
-            <strong>Documentation & Confluence:</strong> 
-            Skilled in maintaining SOPs, technical documentation, and Confluence pages for streamlined knowledge management.
-          </li>
-          <li style={styles.listItem}>
-            <strong>Client Communication & Service Desk Operations:</strong> 
-            Experienced in handling end-user queries, service desk operations, and ensuring seamless IT support.
-          </li>
-        </ul>
-      </div>
+  <h3 style={styles.subHeading}>Skills & Expertise</h3>
+  <ul style={styles.list}>
+    <li style={styles.listItem}>
+      <strong>Manual Testing:</strong> Test case design, execution, exploratory testing, and regression validation.
+    </li>
+    <li style={styles.listItem}>
+      <strong>Bug Tracking:</strong> Proficient in Jira for logging, tracking, and managing defects through the lifecycle.
+    </li>
+    <li style={styles.listItem}>
+      <strong>Cross-Browser Testing:</strong> Hands-on experience with LambdaTest for real-time browser compatibility testing.
+    </li>
+    <li style={styles.listItem}>
+      <strong>API Testing:</strong> Familiar with using Postman for sending requests, testing endpoints, and validating responses.
+    </li>
+    <li style={styles.listItem}>
+      <strong>Test Documentation:</strong> Skilled in writing test cases, maintaining bug logs, and documenting test plans in Confluence.
+    </li>
+    <li style={styles.listItem}>
+      <strong>Monitoring & Observability:</strong> Used New Relic for uptime monitoring and performance troubleshooting.
+    </li>
+  </ul>
+</div>
+
 
       {/* Projects Section */}
       <div style={styles.section}>

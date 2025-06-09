@@ -6,20 +6,21 @@ const Experience = () => {
       <h2 style={styles.heading}>Work Experience</h2>
       
       <div style={styles.jobContainer}>
-        <h3 style={styles.jobTitle}>Service Desk Associate | Horizontal Digital Pvt. Ltd.</h3>
+        <h3 style={styles.jobTitle}> Horizontal Digital Pvt. Ltd.</h3>
         <p style={styles.date}>Feb 2024 - Present</p>
         <ul style={styles.list}>
-          <li>Managed incident resolution and workflows in Jira Service Management.</li>
-          <li>Monitored application performance using New Relic Observability.</li>
-          <li>Implemented REST API integrations for process optimization.</li>
+          <li>Successfully started my career here..!Yaahoo</li>  
         </ul>
       </div>
       
       <div style={styles.jobContainer}>
-        <h3 style={styles.jobTitle}>React Developer Intern | Blockbuster Style Pvt. Ltd.</h3>
+        <h3 style={styles.jobTitle}>React Developer Intern </h3>
         <p style={styles.date}>June 2023 - Oct 2023</p>
         <ul style={styles.list}>
-          <li>Developed and deployed the company website using ReactJS.</li>
+          <li>Developed and deployed the company<br/> 
+          website using React.js,ensuring a responsive <br/>
+          and user-friendly interface.</li>
+
         </ul>
       </div>
     </div>
