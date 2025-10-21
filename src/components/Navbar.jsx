@@ -1,55 +1,58 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaHome, FaGraduationCap, FaBriefcase, FaCode, FaBars, FaTimes } from "react-icons/fa";
+import {
+  FaHome,
+  FaGraduationCap,
+  FaBriefcase,
+  FaCode,
+  FaBars,
+  FaTimes,
+} from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const text = "Happiness  Crowns  Success"
-    .split("")
-    .map((char) => (char === " " ? "\u00A0" : char));
+  const words = "Happiness Crowns Success".split(" ");
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = (e) => e.target.id === "menu-overlay" && setIsOpen(false);
 
   return (
     <header style={styles.header}>
+      {/* matching left-right padding with footer */}
       <div style={styles.navContainer}>
-        {/* Header Text — stable; class for responsive title sizing */}
-        <motion.div className="nav-title"
-          style={{
-            fontSize: "1.98rem",
-            fontWeight: "bold",
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "5px",
-            color: "#FFFFFF",
-            textAlign: "left",
-            maxWidth: "100%",
-            justifyContent: "flex-start",
-            lineHeight: "2.5rem",
-            paddingRight: "25px",
-            marginRight: "25px",
-          }}
-        >
-          {text.map((letter, index) => (
-            <motion.span
-              key={index}
-              style={{ display: "inline-block", whiteSpace: "nowrap" }}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.05, ease: "easeOut" }}
-            >
-              {letter}
-            </motion.span>
-          ))}
-        </motion.div>
+        {/* Row: Title + Hamburger */}
+        <div style={styles.row}>
+          <motion.div className="nav-title" style={styles.title}>
+            {words.map((word, idx) => (
+              <motion.span
+                key={idx}
+                style={{ display: "inline" }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.4,
+                  delay: idx * 0.05,
+                  ease: "easeOut",
+                }}
+              >
+                {word}
+                {idx < words.length - 1 ? " " : ""}
+              </motion.span>
+            ))}
+          </motion.div>
 
-        {/* Hamburger Menu */}
-        <span className="nav-hamburger" style={styles.hamburger} onClick={toggleMenu}>
-          {isOpen ? <FaTimes /> : <FaBars />}
-        </span>
+          {/* Hamburger */}
+          <button
+            className="nav-hamburger"
+            onClick={toggleMenu}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            style={styles.hamburger}
+            type="button"
+          >
+            {isOpen ? <FaTimes /> : <FaBars />}
+          </button>
+        </div>
       </div>
 
       {/* Sidebar Menu */}
@@ -85,7 +88,11 @@ const Navbar = () => {
               </Link>
             </li>
             <li style={styles.navItem}>
-              <Link to="/skills-projects" style={styles.link} onClick={toggleMenu}>
+              <Link
+                to="/skills-projects"
+                style={styles.link}
+                onClick={toggleMenu}
+              >
                 <FaCode style={styles.icon} /> Skills & Projects
               </Link>
             </li>
@@ -96,31 +103,61 @@ const Navbar = () => {
   );
 };
 
+// ✅ Unified spacing with footer
 const styles = {
   header: {
     backgroundColor: "#000000",
     color: "white",
-    padding: "1rem 0",
+    padding: "clamp(18px, 3vw, 30px) clamp(16px, 4vw, 48px)", // same as footer
     position: "fixed",
     width: "100%",
     top: 0,
     left: 0,
-    zIndex: "1000",
-    minHeight: "5%",
+    zIndex: 1000,
+    boxSizing: "border-box",
   },
+
   navContainer: {
+    width: "100%",
+    maxWidth: 1200,
+    margin: "0 auto",
+  },
+
+  row: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
     width: "100%",
-    padding: "0 15px",
-    position: "relative",
   },
+
+  title: {
+    fontSize: "clamp(1.1rem, 4.8vw, 2rem)",
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    lineHeight: 1.2,
+    flex: "1 1 auto",
+    minWidth: 0,
+    textAlign: "left",
+  },
+
+  hamburger: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "2rem",
+    color: "#FFFFFF",
+    background: "transparent",
+    border: "none",
+    cursor: "pointer",
+    padding: "8px",
+    minHeight: 44,
+    lineHeight: 1,
+    zIndex: 1003,
+  },
+
   sidebar: {
     position: "fixed",
-    textAlign: "left",
-    top: "0",
-    left: "0",
+    top: 0,
+    left: 0,
     width: "300px",
     height: "100vh",
     backgroundColor: "#000000",
@@ -129,54 +166,37 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     transition: "transform 0.3s ease-in-out",
-    transform: "translateX(-100%)",
-    zIndex: "999",
+    zIndex: 999,
   },
+
   overlay: {
     position: "fixed",
-    top: "0",
-    left: "0",
+    top: 0,
+    left: 0,
     width: "100%",
     height: "100vh",
     backgroundColor: "rgba(0, 0, 0, 0.4)",
     display: "flex",
     justifyContent: "flex-start",
-    transition: "opacity 0.01s ease-in-out",
+    transition: "opacity 0.3s ease-in-out",
   },
+
   navList: {
     listStyle: "none",
-    textAlign: "left",
-    padding: "0",
+    padding: 0,
   },
-  navItem: {
-    margin: "1.5rem 0",
-  },
+
+  navItem: { margin: "1.5rem 0" },
+
   link: {
     color: "#ffffff",
     textDecoration: "none",
     fontSize: "1.5rem",
     display: "flex",
     alignItems: "center",
-    justifyContent: "flex-start",
-    textAlign: "left",
   },
-  icon: {
-    marginRight: "0.5rem",
-  },
-  hamburger: {
-    fontSize: "2.5rem",
-    cursor: "pointer",
-    position: "absolute",
-    top: "80%",
-    right: "60px",
-    transform: "translateY(-50%)",
-    zIndex: "1003",
-    color: "#FFFFFF",
-    display: "block",
-    maxHeight: "100%",
-    minHeight: 44,
-    padding: "8px", // better tap target
-  },
+
+  icon: { marginRight: "0.5rem" },
 };
 
 export default Navbar;

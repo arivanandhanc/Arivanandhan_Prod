@@ -1,38 +1,53 @@
-.App {
-  text-align: center;
+/* === Layout variables (tweak if you change header/paddings) === */
+:root{
+  --pad-x: clamp(16px, 4vw, 48px);
+  --pad-y: clamp(18px, 3vw, 30px);
+  --header-clear: calc(120px + var(--pad-y));   /* your fixed header + page top pad */
+  --social-gutter: 56px;                        /* space for fixed socials on desktop */
+  --hero-width: min(45vw, 600px);               /* reserved space for right hero image */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Desktop: reserve gutters for socials (left) and hero image (right) */
+@media (min-width: 769px){
+  .home-wrap{
+    padding-left: calc(var(--pad-x) + var(--social-gutter)) !important;
+    padding-right: var(--hero-width) !important;
+    padding-top: var(--header-clear) !important;
+    padding-bottom: var(--pad-y) !important;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Mobile: fall back to normal paddings (your image is already hidden) */
+@media (max-width: 768px){
+  .home-wrap{
+    padding-left: var(--pad-x) !important;
+    padding-right: var(--pad-x) !important;
+    padding-top: var(--header-clear) !important;
+    padding-bottom: var(--pad-y) !important;
+  }
 }
 
-.App-link {
-  color: #61dafb;
+/* Center the hero block between header/footer and left/right gutters */
+.home-content{
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+
+  /* Fill the viewport height below the fixed header + page top/bottom padding */
+  min-height: calc(100vh - var(--pad-y) - var(--pad-y)) !important;
+  margin: 0 auto !important;
+  max-width: min(100%, 920px) !important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Keep heading centered on all sizes */
+.home-content h1{
+  text-align: center !important;
+}
+
+/* Optional: ensure the animated paragraph doesn't grow too wide */
+.home-content > div{
+  max-width: min(90%, 720px) !important;
+  margin-inline: auto !important;
 }

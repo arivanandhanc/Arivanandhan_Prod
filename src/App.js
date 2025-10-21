@@ -11,62 +11,31 @@ function App() {
   return (
     <Router>
       {/* Global responsive helpers */}
-      <style>{`
-        :root { --pad: clamp(16px, 4vw, 32px); }
+<style>{`
+  :root { --pad: clamp(18px, 3vw, 30px) clamp(16px, 4vw, 48px); } /* CHANGED */
 
-        /* Prevent horizontal scroll due to fixed/abs elements */
-        html, body { overflow-x: hidden; }
+  /* (keep the rest exactly as-is) */
+  html, body { overflow-x: hidden; }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+  /* ===== Education ===== */
+  .edu-layout { padding: var(--pad); }
+  ...
+  .home-wrap { padding: var(--pad); } /* Home uses this */
+  ...
+  .section-container { padding: var(--pad); max-width: min(100%, 900px); margin: 0 auto; }
+`}</style>
 
-        /* Respect reduced-motion */
-        @media (prefers-reduced-motion: reduce) {
-          * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-        }
-
-        /* ===== Education ===== */
-        .edu-layout { padding: var(--pad); }
-        @media (max-width: 1024px) {
-          .edu-content { padding-left: 0 !important; max-width: 100% !important; }
-          .edu-timeline { left: 0 !important; }
-        }
-        @media (max-width: 768px) {
-          .edu-sidebar {
-            position: static !important;
-            flex-direction: row !important;
-            gap: 24px !important;
-            justify-content: center !important;
-            margin-bottom: 16px !important;
-          }
-          .edu-icon { font-size: 20px !important; }
-        }
-
-        /* ===== Navbar ===== */
-        @media (max-width: 768px) {
-          .nav-hamburger { right: 16px !important; top: 50% !important; }
-          .nav-title { font-size: clamp(1.2rem, 6vw, 1.6rem) !important; line-height: 2rem !important; }
-        }
-
-        /* ===== Home ===== */
-        .home-wrap { padding: var(--pad); }
-        .home-image { width: min(45vw, 600px); }
-        @media (max-width: 1024px){
-          .home-image { width: 50vw; }
-        }
-        @media (max-width: 768px){
-          .home-image {
-            position: static !important;
-            width: 100% !important;
-            height: auto !important;
-            order: 2 !important;
-            margin-top: 16px !important;
-          }
-          .home-content { max-width: 100% !important; }
-        }
-
-        /* ===== Skills & Projects ===== */
-        .section-container { padding: var(--pad); max-width: min(100%, 900px); margin: 0 auto; }
-      `}</style>
-
-      <div style={{ backgroundColor: '#121212', color: '#ffffff', minHeight: '100vh' }}>
+<div
+  style={{
+    backgroundColor: '#121212',
+    color: '#ffffff',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+  }}
+>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
