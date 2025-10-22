@@ -6,7 +6,7 @@ import Education from './components/Education';
 import Experience from './components/Experience';
 import SkillsProjects from './components/SkillsProjects';
 import Footer from './components/Footer';
-
+import { HashRouter } from 'react-router-dom';
 function App() {
   return (
     <Router>
