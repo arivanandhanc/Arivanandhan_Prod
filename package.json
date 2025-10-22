@@ -20,9 +20,9 @@
     "url": "https://github.com/respectedarivu/arivanandhan-portfolio"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^7.4.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
     "react-icons": "^5.5.0",
     "framer-motion": "^12.5.0",
     "react-type-animation": "^3.2.0",
@@ -36,36 +36,24 @@
     "@testing-library/dom": "^10.4.0"
   },
   "scripts": {
+    "postinstall": "npx -y update-browserslist-db@latest || true",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build:production": "npm run build && npm run postbuild",
-    "postbuild": "cp _redirects build/_redirects && cp _headers build/_headers"
+    "postbuild": "cp public/_redirects build/_redirects && cp public/_headers build/_headers"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
+    "extends": ["react-app", "react-app/jest"],
     "rules": {
       "no-unused-vars": "warn",
       "no-console": "warn"
     }
   },
   "browserslist": {
-    "production": [
-      ">0.3%",
-      "not dead",
-      "not op_mini all",
-      "not ie > 0",
-      "not ie_mob > 0"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "production": [">0.3%", "not dead", "not op_mini all", "not ie > 0", "not ie_mob > 0"],
+    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
   },
   "engines": {
     "node": ">=18.0.0",
