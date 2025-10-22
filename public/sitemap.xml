@@ -77,23 +77,5 @@
     <changefreq>weekly</changefreq>
   </url>
 
-  <!-- 🌍 Social Presence -->
-  <url>
-    <loc>https://github.com/respectedArivu</loc>
-    <priority>0.5</priority>
-    <changefreq>yearly</changefreq>
-  </url>
-
-  <url>
-    <loc>https://linkedin.com/in/respectedarivu</loc>
-    <priority>0.5</priority>
-    <changefreq>yearly</changefreq>
-  </url>
-
-  <url>
-    <loc>https://x.com/mr_arivanandhan</loc>
-    <priority>0.4</priority>
-    <changefreq>yearly</changefreq>
-  </url>
 
 </urlset>
