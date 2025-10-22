@@ -85,7 +85,7 @@ const Footer = () => {
           <FooterLink to="/experience" style={linkStyle}>Experience</FooterLink>
           <FooterLink to="/skills-projects" style={linkStyle}>Skills &amp; Projects</FooterLink>
           <a
-            href="https://www.linkedin.com/in/arivanandhan-chitheshwaran"
+            href="https://www.linkedin.com/in/arivanandhan/"
             target="_blank"
             rel="noopener noreferrer"
             style={linkStyle}

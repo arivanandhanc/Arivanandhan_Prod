@@ -221,11 +221,11 @@ const quoteStyle1 = {
 };
 
 const SOCIALS = [
-  { Icon: FaLinkedin, href: "https://linkedin.com/in/respectedarivu" },
+  { Icon: FaLinkedin, href: "https://www.linkedin.com/in/arivanandhan/" },
   { Icon: FaFacebook, href: "https://www.facebook.com/Mr.C.Arivanandhan/" },
   { Icon: FaInstagram, href: "https://www.instagram.com/mr.coimbatorian/" },
   { Icon: FaTwitter, href: "https://x.com/mr_arivanandhan" },
-  { Icon: FaGithub, href: "https://github.com/respectedarivu" },
+  { Icon: FaGithub, href: "https://github.com/arivanandhanc" },
 ];
 
 const BUTTONS = [
