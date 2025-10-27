@@ -38,44 +38,7 @@
   </url>
 
   <!-- 🚀 Live Projects -->
-  <url>
-    <loc>https://arivanandhan.site/skills-projects#live</loc>
-    <lastmod>2025-10-22</lastmod>
-    <priority>0.8</priority>
-    <changefreq>weekly</changefreq>
-  </url>
 
-  <!-- 🧠 About -->
-  <url>
-    <loc>https://arivanandhan.site/about</loc>
-    <lastmod>2025-10-15</lastmod>
-    <priority>0.8</priority>
-    <changefreq>yearly</changefreq>
-  </url>
-
-  <!-- 💬 Contact -->
-  <url>
-    <loc>https://arivanandhan.site/contact</loc>
-    <lastmod>2025-10-22</lastmod>
-    <priority>0.85</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-
-  <!-- 🧰 Portfolio -->
-  <url>
-    <loc>https://arivanandhan.site/portfolio</loc>
-    <lastmod>2025-10-22</lastmod>
-    <priority>0.88</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-
-  <!-- 📰 Articles or Blog (if added later) -->
-  <url>
-    <loc>https://arivanandhan.site/articles</loc>
-    <lastmod>2025-10-22</lastmod>
-    <priority>0.6</priority>
-    <changefreq>weekly</changefreq>
-  </url>
 
 
 </urlset>

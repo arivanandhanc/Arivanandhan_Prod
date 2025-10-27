@@ -1,110 +1,106 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+const FOOTER_HEIGHT = 96;
+
 const Footer = () => {
-  const isSmall = useMemo(() => {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia("(max-width: 640px)").matches;
+  const [isSmall, setIsSmall] = useState(
+    typeof window !== "undefined" ? window.matchMedia("(max-width: 640px)").matches : false
+  );
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(max-width: 640px)");
+    const onChange = () => setIsSmall(mq.matches);
+    mq.addEventListener ? mq.addEventListener("change", onChange) : mq.addListener(onChange);
+    return () =>
+      mq.removeEventListener ? mq.removeEventListener("change", onChange) : mq.removeListener(onChange);
   }, []);
 
   const rootStyle = {
-    backgroundColor: "#000000",
-    color: "#ffffff",
+    backgroundColor: "#000",
+    color: "#fff",
     width: "100%",
-    padding: "clamp(20px, 3vw, 36px) clamp(20px, 4vw, 64px)", // ⬆️ slightly more vertical + side padding
-    display: "flex",
-    flexDirection: "column",
-    gap: "1rem",
+    padding: "16px clamp(20px, 4vw, 64px)",
     boxSizing: "border-box",
-
-    position: "fixed",
-    bottom: 0,
-    left: 0,
-    zIndex: 999,
+    // ✅ Removed fixed positioning
+    borderTop: "1px solid rgba(255,255,255,0.08)",
     fontFamily: `'Inter', system-ui, sans-serif`,
+    backdropFilter: "saturate(120%) blur(4px)",
+    height: `${FOOTER_HEIGHT}px`,
   };
 
   const containerStyle = {
     maxWidth: 1200,
     width: "100%",
     margin: "0 auto",
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.9rem",
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gridTemplateRows: "auto auto",
+    gridTemplateAreas: `
+      "links   empty1"
+      "empty2  meta"
+    `,
+    alignItems: "center",
+    gap: isSmall ? "10px" : "14px",
   };
 
   const navStyle = {
+    gridArea: "links",
     display: "flex",
     flexWrap: "wrap",
     alignItems: "center",
-    justifyContent: isSmall ? "center" : "flex-start",
+    justifyContent: "flex-start",
     gap: "clamp(14px, 2vw, 36px)",
   };
 
   const linkStyle = {
     color: "#ffffff",
     textDecoration: "none",
-    fontSize: "clamp(15px, 2.4vw, 18px)", // ⬆️ increased font
+    fontSize: "clamp(15px, 2.4vw, 18px)",
     fontWeight: 600,
-    transition: "color 0.3s ease",
+    transition: "color 0.25s ease",
     letterSpacing: "0.3px",
   };
 
-  const bottomStyle = {
+  const metaStyle = {
+    gridArea: "meta",
     display: "flex",
-    justifyContent: isSmall ? "center" : "flex-end",
-    alignItems: "center",
-    fontSize: "clamp(14px, 2vw, 16px)", // ⬆️ bumped up
-    opacity: 0.9,
+    flexDirection: "column",
+    alignItems: isSmall ? "center" : "flex-end",
+    textAlign: isSmall ? "center" : "right",
+    gap: "6px",
   };
 
-  const quoteStyle = {
-    display: "flex",
-    justifyContent: isSmall ? "center" : "flex-end",
+  const quote = {
     fontStyle: "italic",
     color: "#cccccc",
-    fontSize: "clamp(13px, 1.8vw, 15px)", // slightly larger & smoother scaling
+    fontSize: "clamp(13px, 1.8vw, 15px)",
     fontWeight: 400,
     letterSpacing: "0.2px",
   };
- const quoteStyle1 = {
-    display: "flex",
-    justifyContent: isSmall ? "center" : "flex-start",
-    fontStyle: "italic",
-    color: "#cccccc",
-    fontSize: "clamp(13px, 1.8vw, 15px)", // slightly larger & smoother scaling
-    fontWeight: 400,
-    letterSpacing: "0.2px",
-  };
+
+  const copy = { fontSize: "clamp(14px, 2vw, 16px)", opacity: 0.9 };
+
   return (
     <footer style={rootStyle} aria-label="Site Footer">
       <div style={containerStyle}>
         <nav style={navStyle} aria-label="Footer Navigation">
-          <FooterLink to="/" style={linkStyle}>Home</FooterLink>
-          <FooterLink to="/education" style={linkStyle}>Education</FooterLink>
-          <FooterLink to="/experience" style={linkStyle}>Experience</FooterLink>
-          <FooterLink to="/skills-projects" style={linkStyle}>Skills &amp; Projects</FooterLink>
-          <a
-            href="https://www.linkedin.com/in/arivanandhan/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={linkStyle}
-            onMouseOver={(e) => (e.currentTarget.style.color = "#00bfff")}
-            onMouseOut={(e) => (e.currentTarget.style.color = "#ffffff")}
-            aria-label="LinkedIn Profile"
-          >
-            LinkedIn
-          </a>
-          
+          <FooterLink to="/" style={linkStyle}>
+            Home
+          </FooterLink>
+          <FooterLink to="/skills-projects" style={linkStyle}>
+            Skills &amp; Projects
+          </FooterLink>
         </nav>
-        <div style={quoteStyle1}>“Education is the most powerful weapon”</div>
-
-
-        <div style={bottomStyle}>
-          © 2024 Arivanandhan Chitheshwaran. All rights reserved.
+        <div style={{ gridArea: "empty1" }} aria-hidden />
+        <div style={{ gridArea: "empty2" }} aria-hidden />
+        <div style={metaStyle}>
+          <span style={copy}>
+            © {new Date().getFullYear()} Arivanandhan Chitheshwaran. All rights reserved.
+          </span>
+          <span style={quote}>&ldquo;Code. Create. Inspire.&rdquo;</span>
         </div>
-
-        <div style={quoteStyle}>“Code. Create. Inspire.”</div>
       </div>
     </footer>
   );

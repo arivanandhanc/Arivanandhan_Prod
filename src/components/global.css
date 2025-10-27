@@ -1,0 +1,16 @@
+/* global.css */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  background: #000;
+}
+
+/* Only body should scroll */
+body { overflow-y: auto; }
+
+/* Disable nested scrolling on app wrappers */
+#root, .App, main, .page, .content {
+  height: auto !important;
+  min-height: 100%;
+  overflow: visible !important;
+}

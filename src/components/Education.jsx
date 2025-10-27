@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import { FaLinkedin, FaFacebook, FaInstagram, FaTwitter, FaGithub } from "react-icons/fa";
 
 const ACCENT = "#ff6b6b";
+const FOOTER_HEIGHT = 96; // keep in sync with Footer
 
 const Education = () => {
   const [isSmall, setIsSmall] = useState(false);
 
-  // Live breakpoint detection
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 768px)");
-    const handler = (e) => setIsSmall(e.matches);
-    // init + subscribe
+    const handler = e => setIsSmall(e.matches);
     handler(mq);
     mq.addEventListener ? mq.addEventListener("change", handler) : mq.addListener(handler);
     return () => {
@@ -19,30 +18,11 @@ const Education = () => {
   }, []);
 
   const items = [
-    {
-      year: "2024",
-      title: "Bachelor of Technology in Information Technology",
-      org: "Rathinam Technical Campus | Anna University, Chennai",
-      extra: "CGPA: 7.9",
-      link: "https://www.annauniv.edu/",
-    },
-    {
-      year: "2020",
-      title: "Higher Secondary (Mathematics & Biology)",
-      org: "Pioneer Mills Higher Secondary School | TN State Board",
-      extra: "Percentage: 65.2%",
-      link: "https://tnschools.gov.in/",
-    },
-    {
-      year: "2018",
-      title: "Secondary School Leaving Certificate (SSLC)",
-      org: "ABC High School | State Board",
-      extra: "Percentage: 80%",
-      link: "https://tnschools.gov.in/",
-    },
+    { year: "2024", title: "Bachelor of Technology in Information Technology", org: "Rathinam Technical Campus | Anna University, Chennai", extra: "CGPA: 7.9", link: "https://www.annauniv.edu/" },
+    { year: "2020", title: "Higher Secondary (Mathematics & Biology)", org: "Pioneer Mills Higher Secondary School | TN State Board", extra: "Percentage: 65.2%", link: "https://tnschools.gov.in/" },
+    { year: "2018", title: "Secondary School Leaving Certificate (SSLC)", org: "ABC High School | State Board", extra: "Percentage: 80%", link: "https://tnschools.gov.in/" },
   ];
 
-  // Reserve a gutter so fixed socials never overlap the rail/cards on desktop
   const SOCIAL_GUTTER = "56px";
 
   return (
@@ -51,12 +31,10 @@ const Education = () => {
         ...styles.wrap,
         padding: "clamp(18px, 3vw, 30px) clamp(16px, 4vw, 48px)",
         paddingTop: "calc(120px + clamp(18px, 3vw, 30px))", // clear fixed header
-        paddingLeft: isSmall
-          ? "clamp(16px, 4vw, 48px)"
-          : `calc(clamp(16px, 4vw, 48px) + ${SOCIAL_GUTTER})`,
+        paddingLeft: isSmall ? "clamp(16px, 4vw, 48px)" : `calc(clamp(16px, 4vw, 48px) + ${SOCIAL_GUTTER})`,
+        paddingBottom: `${FOOTER_HEIGHT + 24}px`, // 👈 reserve space for fixed footer
       }}
     >
-      {/* Socials: fixed and centered on desktop; inline row on small screens */}
       {isSmall ? (
         <div style={styles.socialsMobile}>
           {SOCIALS.map(({ Icon, href }) => (
@@ -75,7 +53,6 @@ const Education = () => {
         </div>
       )}
 
-      {/* Content */}
       <div
         style={{
           ...styles.container,
@@ -97,15 +74,12 @@ const Education = () => {
                 gap: isSmall ? "12px" : styles.row.gap,
               }}
             >
-              {/* rail + dot (hidden on small) */}
               {!isSmall && (
                 <div style={styles.railBox}>
                   <div style={styles.rail} />
                   <div style={styles.dot} />
                 </div>
               )}
-
-              {/* card */}
               <article
                 style={{
                   ...styles.card,
@@ -140,12 +114,11 @@ const styles = {
   wrap: {
     background: "#000",
     color: "#fff",
-    minHeight: "100vh",
-    position: "relative",
+    minHeight: "100%",
+    height: "auto",       // ensure the section can grow
     boxSizing: "border-box",
+    position: "relative",
   },
-
-  // Desktop: fixed socials in the viewport center
   fixedSocials: {
     position: "fixed",
     top: "50%",
@@ -155,10 +128,8 @@ const styles = {
     flexDirection: "column",
     gap: "clamp(16px, 3vh, 28px)",
     alignItems: "center",
-    zIndex: 999,
+    zIndex: 10,
   },
-
-  // Mobile: socials row on top
   socialsMobile: {
     position: "static",
     display: "flex",
@@ -167,48 +138,18 @@ const styles = {
     gap: "16px",
     marginBottom: "16px",
   },
-
   socialLink: { display: "inline-flex" },
   socialIcon: { fontSize: "clamp(18px, 2.4vw, 22px)", color: "#fff" },
 
-  container: {
-    margin: "0 auto",
-    wordBreak: "break-word",
-    overflowWrap: "anywhere",
-  },
+  container: { margin: "0 auto", wordBreak: "break-word", overflowWrap: "anywhere" },
+  heading: { fontSize: "clamp(28px, 3.6vw, 36px)", fontWeight: 800, margin: "0 0 8px" },
+  sub: { fontSize: "clamp(14px, 2.2vw, 17px)", color: "#cfcfcf", margin: "0 0 28px" },
 
-  heading: {
-    fontSize: "clamp(28px, 3.6vw, 36px)",
-    fontWeight: 800,
-    margin: "0 0 8px",
-  },
-  sub: {
-    fontSize: "clamp(14px, 2.2vw, 17px)",
-    color: "#cfcfcf",
-    margin: "0 0 28px",
-  },
-
-  timeline: {
-    display: "grid",
-    gap: "clamp(18px, 2.6vw, 28px)",
-  },
-  row: {
-    display: "grid",
-    gridTemplateColumns: "28px 1fr", // desktop: rail + card
-    gap: "16px",
-    alignItems: "start",
-  },
+  timeline: { display: "grid", gap: "clamp(18px, 2.6vw, 28px)" },
+  row: { display: "grid", gridTemplateColumns: "28px 1fr", gap: "16px", alignItems: "start" },
 
   railBox: { position: "relative", height: "100%" },
-  rail: {
-    position: "absolute",
-    left: "12px",
-    top: 0,
-    bottom: 0,
-    width: "3px",
-    background: "#fff",
-    opacity: 0.85,
-  },
+  rail: { position: "absolute", left: "12px", top: 0, bottom: 0, width: "3px", background: "#fff", opacity: 0.85 },
   dot: {
     position: "relative",
     left: "6px",
@@ -226,28 +167,10 @@ const styles = {
     padding: "clamp(12px, 2.6vw, 18px)",
     borderRadius: "10px",
   },
-  year: {
-    color: ACCENT,
-    fontWeight: 700,
-    fontSize: "clamp(14px, 1.8vw, 16px)",
-    marginBottom: 6,
-  },
-  title: {
-    color: "#fff",
-    textDecoration: "none",
-    fontWeight: 700,
-    fontSize: "clamp(18px, 2.4vw, 22px)",
-  },
-  meta: {
-    marginTop: 6,
-    color: "#e5e5e5",
-    fontSize: "clamp(13px, 1.9vw, 16px)",
-  },
-  metaLight: {
-    marginTop: 4,
-    color: "#bdbdbd",
-    fontSize: "clamp(12px, 1.8vw, 15px)",
-  },
+  year: { color: ACCENT, fontWeight: 700, fontSize: "clamp(14px, 1.8vw, 16px)", marginBottom: 6 },
+  title: { color: "#fff", textDecoration: "none", fontWeight: 700, fontSize: "clamp(18px, 2.4vw, 22px)" },
+  meta: { marginTop: 6, color: "#e5e5e5", fontSize: "clamp(13px, 1.9vw, 16px)" },
+  metaLight: { marginTop: 4, color: "#bdbdbd", fontSize: "clamp(12px, 1.8vw, 15px)" },
 };
 
 export default Education;

@@ -1,12 +1,14 @@
+// Experience.jsx
 import React, { useEffect, useState } from "react";
 import { FaLinkedin, FaFacebook, FaInstagram, FaTwitter, FaGithub } from "react-icons/fa";
-
+import "./global.css";
 const ACCENT = "#ff6b6b";
+const FOOTER_HEIGHT = 96;                // ← match your fixed Footer height
+const SOCIAL_GUTTER = "56px";            // ← space so fixed socials don’t overlap
 
 const Experience = () => {
   const [isSmall, setIsSmall] = useState(false);
 
-  // Live breakpoint detection (updates on resize/orientation)
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 768px)");
     const handler = (e) => setIsSmall(e.matches);
@@ -17,16 +19,21 @@ const Experience = () => {
     };
   }, []);
 
-  // Reserve a gutter so fixed socials never overlap timeline on desktop
-  const SOCIAL_GUTTER = "56px";
-
   const jobs = [
     {
       company: "Horizontal Digital Pvt. Ltd.",
-      title: "Service Desk Associate (Jira/JSM focus)",
-      date: "Feb 2024 – Present",
+      title: "Service Desk Associate (Atlassian suit / Newrelic / LamdaTest / Contentstack)",
+      date: "May 2024 – Present",
       bullets: ["Successfully started my career here..! Yaahoo"],
     },
+    {
+      company: "Horizontal Digital Pvt. Ltd.",
+      title: "Service Desk Intern",
+      date: "Feb 2024 – May 2024",
+      bullets: [
+        "Startes as intern",
+      ],
+    },,
     {
       company: "React Developer Intern",
       title: "Frontend Intern (React)",
@@ -34,21 +41,21 @@ const Experience = () => {
       bullets: [
         "Developed and deployed the company website using React.js, ensuring a responsive and user-friendly interface.",
       ],
-    },
+    }
   ];
 
   return (
     <section
       style={{
         ...styles.wrap,
-        padding: "clamp(18px, 3vw, 30px) clamp(16px, 4vw, 48px)",
-        paddingTop: "calc(120px + clamp(18px, 3vw, 30px))", // clear fixed header
-        paddingLeft: isSmall
-          ? "clamp(16px, 4vw, 48px)"
-          : `calc(clamp(16px, 4vw, 48px) + ${SOCIAL_GUTTER})`,
+        paddingTop: "calc(120px + clamp(18px, 3vw, 30px))",               // clear fixed header
+        paddingRight: "clamp(16px, 4vw, 48px)",
+        paddingBottom: `${FOOTER_HEIGHT + 24}px`,                          // reserve space for fixed footer
+        paddingLeft: isSmall ? "clamp(16px, 4vw, 48px)" 
+                             : `calc(clamp(16px, 4vw, 48px) + ${SOCIAL_GUTTER})`,
       }}
     >
-      {/* Socials: fixed & centered on desktop; inline row on small screens */}
+      {/* Socials */}
       {isSmall ? (
         <div style={styles.socialsMobile}>
           {SOCIALS.map(({ Icon, href }) => (
@@ -67,17 +74,16 @@ const Experience = () => {
         </div>
       )}
 
+      {/* Content */}
       <div
         style={{
           ...styles.container,
           maxWidth: isSmall ? "100%" : "min(100%, 920px)",
-          paddingLeft: isSmall ? "clamp(18px, 4vw, 30px)" : 0,
-          paddingRight: isSmall ? "clamp(18px, 4vw, 30px)" : 0,
         }}
       >
         <h2 style={styles.heading}>Work Experience</h2>
 
-        <div style={{ ...styles.timeline, gap: isSmall ? "14px" : styles.timeline.gap }}>
+        <div style={styles.timeline}>
           {jobs.map((j, idx) => (
             <div
               key={idx}
@@ -108,9 +114,7 @@ const Experience = () => {
                 <div style={styles.date}>{j.date}</div>
                 <ul style={styles.ul}>
                   {j.bullets.map((b, i) => (
-                    <li key={i} style={styles.li}>
-                      {b}
-                    </li>
+                    <li key={i} style={styles.li}>{b}</li>
                   ))}
                 </ul>
               </article>
@@ -131,15 +135,17 @@ const SOCIALS = [
 ];
 
 const styles = {
+  // PURE BLACK CANVAS
   wrap: {
-    background: "#000",
+    background: "#000",         // pure black
     color: "#fff",
-    minHeight: "100vh",
+    minHeight: "100%",          // allow growth (paired with html/body 100%)
+    height: "auto",
     position: "relative",
     boxSizing: "border-box",
   },
 
-  // Desktop: fixed socials in the viewport center
+  // fixed socials (desktop)
   fixedSocials: {
     position: "fixed",
     top: "50%",
@@ -149,10 +155,10 @@ const styles = {
     flexDirection: "column",
     gap: "clamp(16px, 3vh, 28px)",
     alignItems: "center",
-    zIndex: 999,
+    zIndex: 10,
   },
 
-  // Mobile: socials row on top
+  // socials row (mobile)
   socialsMobile: {
     position: "static",
     display: "flex",
@@ -163,16 +169,10 @@ const styles = {
   },
 
   socialLink: { display: "inline-flex" },
-  socialIcon: {
-    fontSize: "clamp(18px, 2.4vw, 22px)",
-    color: "#fff",
-    cursor: "pointer",
-    transition: "color 0.3s ease, transform 0.2s ease",
-  },
+  socialIcon: { fontSize: "clamp(18px, 2.4vw, 22px)", color: "#fff" },
 
   container: {
     margin: "0 auto",
-    textAlign: "left",
     wordBreak: "break-word",
     overflowWrap: "anywhere",
   },
@@ -180,31 +180,22 @@ const styles = {
   heading: {
     fontSize: "clamp(28px, 3.6vw, 36px)",
     fontWeight: 800,
-    textAlign: "left",
     margin: "0 0 24px",
+    textAlign: "center",
   },
 
-  // timeline-like layout (to match Education/Skills)
-  timeline: {
-    display: "grid",
-    gap: "clamp(18px, 2.6vw, 28px)",
-  },
+  timeline: { display: "grid", gap: "clamp(18px, 2.6vw, 28px)" },
+
   row: {
     display: "grid",
-    gridTemplateColumns: "28px 1fr", // desktop: rail + card
+    gridTemplateColumns: "28px 1fr", // rail + card (desktop)
     gap: "16px",
     alignItems: "start",
   },
+
+  // rail + dot
   railBox: { position: "relative", height: "100%" },
-  rail: {
-    position: "absolute",
-    left: "12px",
-    top: 0,
-    bottom: 0,
-    width: "3px",
-    background: "#fff",
-    opacity: 0.85,
-  },
+  rail: { position: "absolute", left: "12px", top: 0, bottom: 0, width: "3px", background: "#fff", opacity: 0.85 },
   dot: {
     position: "relative",
     left: "6px",
@@ -216,37 +207,19 @@ const styles = {
     boxShadow: "0 0 0 3px rgba(255,255,255,0.08)",
   },
 
+  // card with NO translucent wash
   card: {
-    background: "rgba(255,255,255,0.03)",
-    border: "1px solid rgba(255,255,255,0.08)",
+    background: "transparent",             // ← no gray overlay
+    border: "none",                        // ← no faint border band
     borderLeft: `2px solid ${ACCENT}`,
-    borderRadius: "12px",
     padding: "clamp(14px, 3vw, 18px)",
+    borderRadius: "12px",
   },
 
-  company: {
-    fontSize: "clamp(18px, 2.4vw, 22px)",
-    fontWeight: 800,
-    margin: 0,
-    color: "#fff",
-  },
-  role: {
-    marginTop: 4,
-    color: "#eaeaea",
-    fontSize: "clamp(14px, 2vw, 17px)",
-    fontWeight: 600,
-  },
-  date: {
-    marginTop: 6,
-    color: "#bdbdbd",
-    fontSize: "clamp(12px, 1.8vw, 15px)",
-  },
-  ul: {
-    marginTop: 10,
-    paddingLeft: "20px",
-    lineHeight: 1.6,
-    fontSize: "clamp(13px, 2vw, 16px)",
-  },
+  company: { fontSize: "clamp(18px, 2.4vw, 22px)", fontWeight: 800, margin: 0, color: "#fff" },
+  role: { marginTop: 4, color: "#eaeaea", fontSize: "clamp(14px, 2vw, 17px)", fontWeight: 600 },
+  date: { marginTop: 6, color: "#bdbdbd", fontSize: "clamp(12px, 1.8vw, 15px)" },
+  ul: { marginTop: 10, paddingLeft: 20, lineHeight: 1.6, fontSize: "clamp(13px, 2vw, 16px)" },
   li: { marginBottom: 6 },
 };
 
