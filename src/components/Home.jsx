@@ -203,7 +203,6 @@ const Home = () => {
           position: "relative",
           zIndex: 1,
           height:'100%',
-          background: "linear-gradient(180deg, #0b0b0b 0%, #000 100%)",
           color: "#fff",
           padding: "clamp(32px, 5vw, 72px) 4vw",
           borderTop: "1px solid rgba(255,255,255,0.08)",
